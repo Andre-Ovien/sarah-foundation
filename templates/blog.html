@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block body %}
+<!-- Page Title -->
+<div class="page-title dark-background" data-aos="fade"
+     style="background-image: url('{% static "img/page-title-bg.jpg" %}');">
+  <div class="container position-relative">
+    <h1>Blog</h1>
+    <p>Welcome to our blog section, you can find useful reads here. Have fun.</p>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li class="current">Blog</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<!-- End Page Title -->
+
+<!-- Blog Posts Section -->
+<section id="blog-posts" class="blog-posts section">
+  <div class="container">
+    <div class="row gy-4" id="blog-posts-container">
+      <p>Loading blog posts...</p>
+    </div>
+  </div>
+</section>
+<!-- /Blog Posts Section -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("/blog/blog-post/")
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById("blog-posts-container");
+      container.innerHTML = ""; 
+
+      if (!Array.isArray(data) || data.length === 0) {
+        container.innerHTML = "<p>No blog posts found.</p>";
+        return;
+      }
+
+      data.forEach(post => {
+        container.innerHTML += `
+          <div class="col-lg-4">
+            <article class="d-flex flex-column">
+
+              <div class="post-img">
+                <img src="${post.image}" alt="${post.title}" class="img-fluid">
+              </div>
+
+              <h2 class="title">
+                <a href="/blog/blog-detail/${post.id}/">${post.title}</a>
+              </h2>
+
+              <div class="meta-top">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> ${post.author}</li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> 
+                    <time datetime="${post.publish_date}">${new Date(post.publish_date).toLocaleDateString()}</time>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="content">
+                <p>${post.content.substring(0, 150)}...</p>
+              </div>
+
+              <div class="read-more mt-auto align-self-end">
+                <a href="/blog/blog-detail/${post.id}/">Read More</a>
+              </div>
+
+            </article>
+          </div>
+        `;
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching blog posts:", error);
+      document.getElementById("blog-posts-container").innerHTML = "<p>Failed to load blog posts.</p>";
+    });
+});
+</script>
+{% endblock %}
