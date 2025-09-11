@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- About Section -->
+    <section id="about" class="about section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>ABOUT THE FOUNDATION</h2>
+        <p></p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">Who We Are</p>
+            <h3>Unleashing Potential with Creative Strategy</h3>
+            <p class="fst-italic">
+              Sarah Foundation is a non-profit organization dedicated to uplifting vulnerable communities through education, healthcare and empowerment initiatives, we believe that every individual deserves the opportunity to live with dignity, access basic needs, and unlock their full potential regardless of background or circumstance.
+            </p>
+            <h3>Our Mission</h3>
+            <p class=""fst-italic>
+              To create life-changing opportunities for underprivileged children, families, and communities by providing access to education, healthcare, and sustainable development programs
+            </p>
+            <h3>Our Vision</h3>
+            <p class=""fst-italic>
+              A world where no child is denied education, no family is left without healthcare, and every community has the tools to build sustainable future
+            </p>
+            <h3>Our Core Values</h3>
+            <p class=""fst-italic>
+             <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Integrity - we remain transparentand accountable in everything we do.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Compassion - we act with empathy, respect, and love for humanity.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Empowerment - we give individuals the tools and opportunities to build better lives.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Sustainability - we focus on long-term solutions that create lasting impact</span></li>
+            </ul> 
+            </p>
+            <h3>Why we Exist</h3>
+            <p class=""fst-italic>
+              At the heart of Sarah Foundation is the belief that change begins with compassion in action. Every initiative we undertake is a step towards breaking cycles of poverty, giving hope to those who need it most, and building stronger, healthier communities.
+            </p>
+            <a href="#" class="read-more"><span>Support us</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <img src="{% static 'img/image2.png' %}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="{% static 'img/image4.png' %}" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="{% static 'img/image5.png' %}" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /About Section -->
+
+{% endblock %}

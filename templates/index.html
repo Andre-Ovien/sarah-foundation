@@ -13,7 +13,7 @@
           <div class="carousel-container">
             <h2>A Safe Place for Every Mind</h2>
             <p>At Sarah Foundation, we believe mental health is just as important as physical health. We create spaces where children, adolescents, and adults can feel safe, supported, and understood — no matter their journey.</p>
-            <a href="#featured-services" class="btn-get-started">Read More</a>
+            <a href="{% url 'about' %}" class="btn-get-started">Read More</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -22,7 +22,7 @@
           <div class="carousel-container">
             <h2>Educating Minds</h2>
             <p>Through school and community programs, we raise awareness about mental health, breaking the stigma and building understanding — one conversation at a time.</p>
-            <a href="#featured-services" class="btn-get-started">Read More</a>
+            <a href="{% url 'about' %}" class="btn-get-started">Read More</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -31,7 +31,7 @@
           <div class="carousel-container">
             <h2>Early Support, Brighter Futures</h2>
             <p>We provide resources, mentorship, and guidance before challenges become crises — ensuring people get the help they need when it matters most.</p>
-            <a href="#featured-services" class="btn-get-started">Read More</a>
+            <a href="{% url 'about' %}" class="btn-get-started">Read More</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -40,7 +40,7 @@
           <div class="carousel-container">
             <h2>Accessible Care for All</h2>
             <p>No matter where you are, we connect you to safe spaces, tools, and support systems that promote healing and resilience.</p>
-            <a href="#featured-services" class="btn-get-started">Read More</a>
+            <a href="{% url 'about' %}" class="btn-get-started">Read More</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -49,7 +49,7 @@
           <div class="carousel-container">
             <h2>A Community of Hope</h2>
             <p>We are more than an organization — we are a family built on empathy, hope, and the belief that together, healing is possible.</p>
-            <a href="#featured-services" class="btn-get-started">Read More</a>
+            <a href="{% url 'about' %}" class="btn-get-started">Read More</a>
           </div>
         </div><!-- End Carousel Item -->
 
@@ -215,7 +215,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-heart-pulse icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Mental Health Awareness</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Mental Health Awareness</a></h4>
                 <p class="description">We bring mental health education to schools and communities, breaking stigma and fostering understanding.</p>
               </div>
             </div>
@@ -225,7 +225,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-broadcast icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Early Intervention Program</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Early Intervention Program</a></h4>
                 <p class="description">Identifying signs early can change lives. Our trained volunteers and professionals provide timely support and referrals.</p>
               </div>
             </div>
@@ -235,7 +235,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-easel3 icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Workshops & Training</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Workshops & Training</a></h4>
                 <p class="description">Practical sessions for students, teachers, and parents on emotional resilience, coping strategies, and peer support.</p>
               </div>
             </div>
@@ -245,7 +245,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-diagram-3 icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Support Groups</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Support Groups</a></h4>
                 <p class="description">Safe, judgment-free spaces where individuals can share, listen, and grow together.</p>
               </div>
             </div>
@@ -255,7 +255,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-calendar-event icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Community Events</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Community Events</a></h4>
                 <p class="description">Wellness walks, mental health fairs, and open discussions that build stronger, more connected communities.</p>
               </div>
             </div>
@@ -265,7 +265,7 @@
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-chat-square-text icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="service-details.html" class="stretched-link">Counselling & Resources</a></h4>
+                <h4 class="title"><a href="" class="stretched-link">Counselling & Resources</a></h4>
                 <p class="description">Access to mental health professionals and curated self-help materials for those seeking guidance.</p>
               </div>
             </div>
@@ -342,11 +342,11 @@
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g1.jpg' %}"><img src="{% static 'img/gallery/g1.jpg' %}" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g2.jpg' %}"><img src="{% static 'img/gallery/g2.jpg' %}" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g3.jpg' %}"><img src="{% static 'img/gallery/g3.jpg' %}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g4.jpg' %}"><img src="" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g10.jpg' %}"><img src="{% static 'img/gallery/g10.jpg' %}" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g5.jpg' %}"><img src="{% static 'img/gallery/g5.jpg' %}" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g6.jpg' %}"><img src="{% static 'img/gallery/g6.jpg' %}" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g7.jpg' %}"><img src="" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g12.jpg' %}"><img src="{% static 'img/gallery/g12.jpg' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="{% static 'img/gallery/g11.jpg' %}"><img src="{% static 'img/gallery/g11.jpg' %}" class="img-fluid" alt=""></a></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
