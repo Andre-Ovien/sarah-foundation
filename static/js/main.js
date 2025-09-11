@@ -92,7 +92,8 @@
       mirror: false
     });
   }
-  window.addEventListener('load', aosInit);
+  // ✅ Run once DOM is parsed, no need to wait for images
+  document.addEventListener('DOMContentLoaded', aosInit);
 
   /**
    * Auto generate the carousel indicators
@@ -168,8 +169,8 @@
       }
     });
   }
-
-  window.addEventListener("load", initSwiper);
+  // ✅ Run swiper on DOMContentLoaded
+  document.addEventListener("DOMContentLoaded", initSwiper);
 
   /**
    * Frequently Asked Questions Toggle
