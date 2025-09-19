@@ -1,73 +1,196 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
 
 {% block body %}
-<!-- Page Title -->
-<div class="page-title dark-background" data-aos="fade"
-     style="background-image: url('{% static "img/page-title-bg.jpg" %}');">
-  <div class="container position-relative">
-    <h1 id="post-title">Blog Details</h1>
-    <p id="post-summary"></p>
-    <nav class="breadcrumbs">
-      <ol>
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li class="current">Blog Details</li>
-      </ol>
-    </nav>
+  <!-- Page Title -->
+  <div class="page-title dark-background" data-aos="fade"
+       style="background-image: url('{% static "img/page-title-bg.jpg" %}');">
+    <div class="container position-relative">
+      <h1>Blog Details</h1>
+      <p>Read the full article below.</p>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li class="current">Detail</li>
+        </ol>
+      </nav>
+    </div>
   </div>
-</div>
-<!-- End Page Title -->
+  <!-- End Page Title -->
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8">
-      <!-- Blog Details Section -->
-      <section id="blog-details" class="blog-details section">
-        <div class="container">
-          <article class="article">
-            <div class="post-img">
-              <img id="post-image" src="" alt="" class="img-fluid">
-            </div>
-            <h2 class="title" id="post-title-2"></h2>
-            <div class="meta-top">
+  <!-- Blog Detail Section -->
+  <section id="blog" class="blog section">
+    <div class="container" data-aos="fade-up">
+      <div class="row g-5">
+        <!-- Blog main content -->
+        <div class="col-lg-8" id="blog-detail-container">
+          <p>Loading blog post...</p>
+        </div>
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <h3 class="sidebar-title">Categories</h3>
+            <div class="sidebar-item categories">
               <ul>
-                <li><i class="bi bi-person"></i> <span id="post-author"></span></li>
-                <li><i class="bi bi-clock"></i> <time id="post-date"></time></li>
+                <li><a href="#">Education</a></li>
+                <li><a href="#">Foundation</a></li>
+                <li><a href="#">News</a></li>
               </ul>
             </div>
-            <div class="content" id="post-content">
-              <!-- Full content will be injected here -->
-            </div>
-          </article>
+          </div>
         </div>
-      </section>
+        <!-- End Sidebar -->
+      </div>
     </div>
+  </section>
 
-    <!-- Sidebar (optional, can copy from template) -->
-    <div class="col-lg-4 sidebar">
-      <!-- Keep the sidebar widgets if you want -->
+  <!-- Comments Section -->
+  <section id="blog-comments" class="blog section">
+    <div class="container" data-aos="fade-up">
+      <div class="row g-5">
+        <div class="col-lg-8">
+          <div class="comments">
+            <h4 class="comments-count"><b>Comments</b></h4>
+            <div id="comments-container">
+              <p>Loading comments...</p>
+            </div>
+
+            <!-- Comment Form -->
+            <div class="reply-form mt-4">
+              <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body">
+                  <h5 class="card-title"><b>Leave a Comment</b></h5>
+                  <p class="text-muted mb-4">Your email address will not be published. Required fields are marked *</p>
+                  <form id="comment-form">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <input type="text" id="comment-author" class="form-control"
+                               placeholder="Your Name*" required>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <input type="email" id="comment-email" class="form-control"
+                               placeholder="Your Email*" required>
+                      </div>
+                      <div class="col-12 mb-3">
+                        <textarea id="comment-content" class="form-control"
+                                  rows="4" placeholder="Your Comment*" required></textarea>
+                      </div>
+                      <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-success px-5">Post Comment</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- End Comment Form -->
+
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const postId = "{{ post_id }}";  // passed from view
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith(name + "=")) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
 
-  fetch(`/blog/blog-detail/${postId}/`)
-    .then(response => response.json())
-    .then(post => {
-      document.getElementById("post-title").textContent = post.title;
-      document.getElementById("post-summary").textContent = post.content.substring(0, 150) + "...";
-      document.getElementById("post-title-2").textContent = post.title;
-      document.getElementById("post-author").textContent = post.author;
-      document.getElementById("post-date").textContent = new Date(post.publish_date).toLocaleDateString();
-      document.getElementById("post-content").innerHTML = `<p>${post.content.replace(/\n/g, '</p><p>')}</p>`;
-      document.getElementById("post-image").src = post.image;
-    })
-    .catch(error => {
-      console.error("Error loading post:", error);
+    document.addEventListener("DOMContentLoaded", function () {
+      const pathParts = window.location.pathname.split("/");
+      const postId = pathParts[pathParts.length - 2];
+
+      // Fetch blog post
+      fetch(`/blog/blog-detail/${postId}/`)
+        .then(response => response.json())
+        .then(post => {
+          document.getElementById("blog-detail-container").innerHTML = `
+            <article class="blog-details">
+              <div class="post-img mb-3">
+                <img src="${post.image}" alt="${post.title}" class="img-fluid rounded">
+              </div>
+              <h2 class="title">${post.title}</h2>
+              <div class="meta-top mb-3">
+                <ul>
+                  <li><i class="bi bi-person"></i> ${post.author}</li>
+                  <li><i class="bi bi-clock"></i> 
+                    <time datetime="${post.publish_date}">
+                      ${new Date(post.publish_date).toLocaleDateString()}
+                    </time>
+                  </li>
+                </ul>
+              </div>
+              <div class="content">
+                <p>${post.content}</p>
+              </div>
+            </article>
+          `;
+
+          // ✅ Load comments immediately after blog loads
+          loadComments();
+        });
+
+      // Load comments
+      function loadComments() {
+        fetch(`/blog/blog/${postId}/comments/`)
+          .then(response => response.json())
+          .then(comments => {
+            const container = document.getElementById("comments-container");
+            container.innerHTML = "";
+
+            if (!Array.isArray(comments) || comments.length === 0) {
+              container.innerHTML = "<p>No comments yet. Be the first to comment!</p>";
+              return;
+            }
+
+            comments.forEach(c => {
+              container.innerHTML += `
+                <div class="comment mb-3">
+                  <h5><b>${c.name}<b></h5>
+                  <p>${c.comment}</p>
+                </div>
+              `;
+            });
+          });
+      }
+
+      // Handle new comment
+      document.getElementById("comment-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("comment-author").value;
+        const email = document.getElementById("comment-email").value;
+        const comment = document.getElementById("comment-content").value;
+
+        fetch(`/blog/blog/${postId}/comments/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken")
+          },
+          body: JSON.stringify({ name, email, comment })
+        })
+          .then(response => {
+            if (!response.ok) throw new Error("Failed to post comment");
+            return response.json();
+          })
+          .then(() => {
+            document.getElementById("comment-form").reset();
+            loadComments();
+          })
+          .catch(err => console.error(err));
+      });
     });
-});
-</script>
+  </script>
 {% endblock %}
