@@ -4,6 +4,8 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, AllowAny
 from .models import Blog, Comment
 from .serializers import BlogSerializer, CommentSerializer
+from rest_framework.decorators import api_view
+
 
 # Create your views here.
 
@@ -35,6 +37,22 @@ class BlogDetailApi(generics.RetrieveUpdateDestroyAPIView):
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
     
+    @api_view(["GET", "POST"])
+    def comments_api(request, post_id):
+        if request.method == "GET":
+            comments = Comment.objects.filter(post_id=post_id).order_by("-created_at")
+            serializer = CommentSerializer(comments, many=True)
+            return Response(serializer.data)
+
+        if request.method == "POST":
+            data = request.data.copy()
+            data["post"] = post_id
+            serializer = CommentSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save(post_id=post_id)
+                return Response(serializer.data, status=201)
+            return Response(serializer.errors, status=400)
+    
 
 def blog_detail(request, pk):
     context = {
@@ -45,18 +63,13 @@ def blog_detail(request, pk):
 
 class CommentListCreateApi(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
+    permission_classes = [AllowAny]  # let anyone post comments
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
-        return Comment.objects.filter(post_id=post_id)
+        return Comment.objects.filter(blog_id=post_id).order_by("-comment_date")
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
-        serializer.save(post_id=post_id)
-
-
-def event(request):
-    context ={
-
-    }
-    return render(request, 'event.html',context)
+        blog = Blog.objects.get(pk=post_id)
+        serializer.save(blog=blog)
