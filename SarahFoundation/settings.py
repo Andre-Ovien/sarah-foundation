@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Core',
     'rest_framework',
     'blog',
+    'Events',
 ]
 
 MIDDLEWARE = [
