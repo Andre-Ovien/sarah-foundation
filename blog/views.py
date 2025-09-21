@@ -55,15 +55,17 @@ class BlogDetailApi(generics.RetrieveUpdateDestroyAPIView):
     
 
 def blog_detail(request, pk):
+    recent_post = Blog.objects.order_by('-publish_date')[:3]
     context = {
-        "post_id": pk
+        "post_id": pk,
+        "recent_post": recent_post,
         }
     return render(request, 'blog_detail.html', context)
 
 
 class CommentListCreateApi(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
-    permission_classes = [AllowAny]  # let anyone post comments
+    permission_classes = [AllowAny]
 
     def get_queryset(self):
         post_id = self.kwargs.get('post_id')
