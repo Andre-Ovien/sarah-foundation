@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<!-- Page Title -->
+<div class="page-title dark-background"data-aos="fade"
+       style="background-image: url('{% static "img/page-title-bg.jpg" %}');">>
+  <div class="container d-lg-flex justify-content-between align-items-center">
+    <h1 class="mb-2 mb-lg-0" id="event-title"></h1>
+    <nav class="breadcrumbs">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li class="current">Event Details</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- Event Section -->
+<section id="event" class="event section">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="event-image mb-4" data-aos="fade-up">
+          <img id="event-main-image" src="" alt="Event" class="img-fluid rounded">
+        </div>
+
+        <div class="event-meta mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="meta-item bg-light p-2 rounded shadow-sm">
+                <i class="bi bi-calendar-date"></i>
+                <span id="event-date"></span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="meta-item bg-light p-2 rounded shadow-sm">
+                <i class="bi bi-clock"></i>
+                <span id="event-time"></span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="meta-item bg-light p-2 rounded shadow-sm">
+                <i class="bi bi-geo-alt"></i>
+                <span id="event-location"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-content" data-aos="fade-up" data-aos-delay="200">
+          <h2 id="event-text-title"></h2>
+          <p id="event-description"></p>
+
+          <h3 class="mt-4">Event Highlights</h3>
+          <ul id="event-highlights" class="event-highlights"></ul>
+
+          <div class="event-gallery mt-5" data-aos="fade-up" data-aos-delay="300">
+            <h3>Event Gallery</h3>
+            <div class="row g-4 mt-2" id="event-gallery"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="event-sidebar">
+          <div class="sidebar-widget registration-form" data-aos="fade-left" data-aos-delay="200">
+            <h3>Register for this Event</h3>
+            <form id="event-registration-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" required="">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" required="">
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone">
+              </div>
+              <div class="mb-3">
+                <label for="student-type" class="form-label">You are a</label>
+                <select class="form-select" id="student-type">
+                  <option selected="">Select an option</option>
+                  <option value="teenager">Teenager</option>
+                  <option value="adult">Adult</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-register btn btn-success">Register Now</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="sidebar-widget related-events" data-aos="fade-left" data-aos-delay="400">
+            <h3></h3>
+            <div id="related-events"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const eventId = window.location.pathname.split("/").filter(Boolean).pop();
+
+    // Fetch event details
+    fetch(`/api/events/events-details/${eventId}/`)
+        .then(res => res.json())
+        .then(event => {
+            document.getElementById("event-title").textContent = event.title;
+            document.getElementById("event-main-image").src = event.image;
+            document.getElementById("event-text-title").textContent = event.title;
+            document.getElementById("event-description").textContent = event.description;
+            document.getElementById("event-date").textContent = new Date(event.date).toLocaleDateString();
+            document.getElementById("event-time").textContent = `${event.start_time} - ${event.end_time}`;
+            document.getElementById("event-location").textContent = event.location;
+
+            // Highlights
+            const highlights = ["highlight_1","highlight_2","highlight_3","highlight_4","highlight_5"];
+            const ul = document.getElementById("event-highlights");
+            highlights.forEach(h => {
+                if(event[h]) {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<i class="bi bi-check-circle" style="color: green;"></i> <span>${event[h]}</span>`;
+                    ul.appendChild(li);
+                }
+            });
+
+            // Gallery
+            const images = ["image_1","image_2","image_3"];
+            const gallery = document.getElementById("event-gallery");
+            images.forEach(imgField => {
+                if(event[imgField]) {
+                    const div = document.createElement("div");
+                    div.classList.add("col-md-4");
+                    div.innerHTML = `<a href="${event[imgField]}" class="glightbox"><img src="${event[imgField]}" class="img-fluid rounded" alt="Event Gallery"></a>`;
+                    gallery.appendChild(div);
+                }
+            });
+
+            // Related events 
+            fetch('/api/events/')
+                .then(res => res.json())
+                .then(allEvents => {
+                    const relatedDiv = document.getElementById("related-events");
+                    allEvents.filter(e => e.id != event.id).slice(0,3).forEach(rel => {
+                        const div = document.createElement("div");
+                        div.classList.add("related-event-item");
+                        div.innerHTML = `
+                            <div class="related-event-date">
+                              <span class="day">${new Date(rel.date).getDate()}</span>
+                              <span class="month">${new Date(rel.date).toLocaleString('default',{month:'short'})}</span>
+                            </div>
+                            <div class="related-event-info">
+                              <h4>${rel.title}</h4>
+                              <p><i class="bi bi-geo-alt"></i> ${rel.location}</p>
+                            </div>`;
+                        relatedDiv.appendChild(div);
+                    });
+                });
+        });
+});
+</script>
+
+{% endblock %}
