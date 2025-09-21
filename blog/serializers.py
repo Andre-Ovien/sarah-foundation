@@ -15,8 +15,7 @@ class CommentSerializer(serializers.ModelSerializer):
         )
 
 class BlogSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField(read_only=True)
-    comments = CommentSerializer(many=True, read_only=True)
+    #author = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Blog
         fields = (
@@ -27,5 +26,4 @@ class BlogSerializer(serializers.ModelSerializer):
             'image',
             'publish_date',
             'update_date',
-            'comments',
         )
