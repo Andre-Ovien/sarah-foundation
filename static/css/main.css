@@ -2852,10 +2852,10 @@ section,
   }
 }
 
-
 /*--------------------------------------------------------------
 # Events Section
 --------------------------------------------------------------*/
+
 .events .event-item {
   background-color: var(--surface-color);
   border-radius: 16px;
@@ -2870,6 +2870,7 @@ section,
   box-shadow: 0 15px 35px color-mix(in srgb, var(--default-color), transparent 85%);
 }
 
+/* Event image */
 .events .event-item .event-image {
   position: relative;
   overflow: hidden;
@@ -2891,7 +2892,11 @@ section,
   position: absolute;
   top: 15px;
   right: 15px;
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #ff6b6b 30%));
+  background: linear-gradient(
+    135deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), #ff6b6b 30%)
+  );
   color: var(--contrast-color);
   padding: 8px 12px;
   border-radius: 12px;
@@ -2906,10 +2911,12 @@ section,
   text-transform: uppercase;
 }
 
+/* Event details */
 .events .event-item .event-details {
   padding: 1.5rem;
 }
 
+/* Category + time */
 .events .event-item .event-details .event-category {
   display: flex;
   justify-content: space-between;
@@ -2950,11 +2957,12 @@ section,
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--accent-color);
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  background-color: rgba(24, 210, 110, 0.1);
   padding: 0.3rem 0.7rem;
   border-radius: 15px;
 }
 
+/* Title + description */
 .events .event-item .event-details h3 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -2964,12 +2972,13 @@ section,
 }
 
 .events .event-item .event-details p {
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: var(--default-color);
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1.25rem;
 }
 
+/* Info rows */
 .events .event-item .event-details .event-info {
   margin-bottom: 1.5rem;
 }
@@ -2979,7 +2988,7 @@ section,
   align-items: center;
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
-  color: color-mix(in srgb, var(--default-color), transparent 35%);
+  color: var(--default-color);
 }
 
 .events .event-item .event-details .event-info .info-row i {
@@ -2989,6 +2998,7 @@ section,
   width: 16px;
 }
 
+/* Footer (buttons + share) */
 .events .event-item .event-details .event-footer {
   display: flex;
   justify-content: space-between;
@@ -2996,19 +3006,19 @@ section,
 }
 
 .events .event-item .event-details .event-footer .register-btn {
-  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #6c5ce7 20%));
+  background: var(--accent-color);
   color: var(--contrast-color);
   padding: 0.6rem 1.4rem;
   border-radius: 25px;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 4px 15px rgba(24, 210, 110, 0.3);
 }
 
 .events .event-item .event-details .event-footer .register-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color), transparent 60%);
+  box-shadow: 0 6px 20px rgba(24, 210, 110, 0.4);
 }
 
 .events .event-item .event-details .event-footer .event-share {
@@ -3023,8 +3033,8 @@ section,
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: color-mix(in srgb, var(--default-color), transparent 92%);
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  background-color: rgba(102, 102, 102, 0.08);
+  color: rgba(102, 102, 102, 0.6);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -3035,6 +3045,15 @@ section,
   transform: scale(1.1);
 }
 
+/* Right sidebar card tweaks */
+.event-sidebar {
+  background-color: #f7f7f7;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Events navigation */
 .events .events-navigation {
   margin-top: 3rem;
   padding-top: 2rem;
@@ -3092,6 +3111,7 @@ section,
   transform: translateY(-2px);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
   .events .event-item .event-image {
     height: 180px;
