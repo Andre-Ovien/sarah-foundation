@@ -10,6 +10,7 @@ class Event(models.Model):
     end_time = models.TimeField(default="12:00:00")
     location = models.CharField(max_length=200, blank=True)
     image = models.ImageField(upload_to='events/', blank=True, null=True)
+    is_live = models.BooleanField(default=True)
 
     highlight_1 = models.TextField(blank=False)
     highlight_2 = models.TextField(blank=False)
