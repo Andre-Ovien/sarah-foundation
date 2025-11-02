@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog',
     'Events',
-    'corsheaders'
+    'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -157,6 +159,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://sarah-foundation.onrender.com", 
 ]
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # User = AUTH_USER_MODEL
 # ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
