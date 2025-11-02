@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog',
     'Events',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'blog.User'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWS_CREDENTIALS = True
