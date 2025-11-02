@@ -3,8 +3,11 @@ services:
     name: sarahfoundation
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: SarahFoundation.wsgi
+    buildCommand: |
+     pip install -r requirements.txt
+     python manage.py migrate
+     python manage.py collectstatic --noinput 
+    startCommand: gunicorn SarahFoundation.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: SarahFoundation.settings
