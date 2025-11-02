@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.contrib.auth import get_user_model
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,3 +154,13 @@ CORS_ALLOWS_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "https://sarah-foundation.onrender.com", 
 ]
+
+
+User = get_user_model()
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+
+try:
+    if not User.objects.filter(username="admin").exists():
+        User.objects.create_superuser("admin", "admin@example.com", ADMIN_PASSWORD)
+except Exception as e:
+    print(f"Superuser creation skipped: {e}")
