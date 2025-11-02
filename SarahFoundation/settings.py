@@ -15,6 +15,8 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 from django.contrib.auth import get_user_model
+import cloudinary
+from decouple import config
 
 load_dotenv()
 
@@ -160,6 +162,9 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+cloudinary.config(cloudinary_url=config("CLOUDINARY_URL"))
+
 
 # User = AUTH_USER_MODEL
 # ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
