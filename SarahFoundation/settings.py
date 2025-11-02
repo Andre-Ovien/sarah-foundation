@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 import dj_database_url
 from django.contrib.auth import get_user_model
 
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s!1=1ld@5pyl96h)$cxqa$e+i(u-gn1@ld&83fnjp1^$s1*uxo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['sarah-foundation.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -91,7 +93,7 @@ WSGI_APPLICATION = 'SarahFoundation.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Password validation
@@ -156,11 +158,11 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
-User = AUTH_USER_MODEL
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+# User = AUTH_USER_MODEL
+# ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
 
-try:
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser("admin", "admin@example.com", ADMIN_PASSWORD)
-except Exception as e:
-    print(f"Superuser creation skipped: {e}")
+# try:
+#     if not User.objects.filter(username="admin").exists():
+#         User.objects.create_superuser("admin", "admin@example.com", ADMIN_PASSWORD)
+# except Exception as e:
+#     print(f"Superuser creation skipped: {e}")
