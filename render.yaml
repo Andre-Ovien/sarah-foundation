@@ -7,7 +7,6 @@ services:
       pip install -r requirements.txt
       python manage.py migrate --noinput
       python manage.py collectstatic --noinput
-      python manage.py createsuperuser --noinput --username andy --email andy@gmail.com || true
     startCommand: gunicorn SarahFoundation.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -19,9 +18,12 @@ services:
       - key: DEBUG
         value: False
       - key: ALLOWED_HOSTS
-        value: ".onrender.com"
-      - key: ADMIN_PASSWORD
-        value: andy12345
+        value: ".onrender.com,localhost,127.0.0.1"
+      # connects to the database service defined below 
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sarahfoundation-db
+          property: connectionString
     autoDeploy: true
     healthCheckPath: "/"
 
