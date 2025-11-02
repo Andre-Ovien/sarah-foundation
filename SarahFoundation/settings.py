@@ -156,7 +156,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
-User = get_user_model()
+User = AUTH_USER_MODEL
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
 
 try:
