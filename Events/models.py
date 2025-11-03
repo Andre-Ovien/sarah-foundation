@@ -1,5 +1,5 @@
 from django.db import models
-
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -9,7 +9,7 @@ class Event(models.Model):
     start_time = models.TimeField(default="12:00:00")
     end_time = models.TimeField(default="12:00:00")
     location = models.CharField(max_length=200, blank=True)
-    image = models.ImageField(upload_to='events/', blank=True, null=True, max_length=500)
+    image = models.ImageField(storage=MediaCloudinaryStorage(),upload_to='events/', blank=True, null=True, max_length=500)
     is_live = models.BooleanField(default=True)
 
     highlight_1 = models.TextField(blank=False)
@@ -17,9 +17,9 @@ class Event(models.Model):
     highlight_3 = models.TextField(blank=False)
     highlight_4 = models.TextField(blank=False)
     highlight_5 = models.TextField(blank=False)
-    image_1 = models.ImageField(upload_to="Events_gallery",blank=True, null=True, max_length=500)
-    image_2 = models.ImageField(upload_to="Events_gallery",blank=True, null=True, max_length=500) 
-    image_3 = models.ImageField(upload_to="Events_gallery",blank=True, null=True, max_length=500)
+    image_1 = models.ImageField(storage=MediaCloudinaryStorage(),upload_to="Events_gallery",blank=True, null=True, max_length=500)
+    image_2 = models.ImageField(storage=MediaCloudinaryStorage(),upload_to="Events_gallery",blank=True, null=True, max_length=500) 
+    image_3 = models.ImageField(storage=MediaCloudinaryStorage(),upload_to="Events_gallery",blank=True, null=True, max_length=500)
 
     def __str__(self):
         return self.title
