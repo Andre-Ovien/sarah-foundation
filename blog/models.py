@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
-
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 
 class User(AbstractUser):
@@ -12,7 +12,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=264, verbose_name="Add a title")
     slug = models.SlugField(max_length=264, unique=True)
     content = models.TextField(verbose_name="What's on your mind?")
-    image = models.ImageField(upload_to="blog_image", verbose_name="Add an image",blank=True, null=True, max_length=500)
+    image = models.ImageField(storage=MediaCloudinaryStorage(),upload_to="blog_image", verbose_name="Add an image",blank=True, null=True, max_length=500)
     publish_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
