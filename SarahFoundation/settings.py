@@ -162,6 +162,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME"),
     api_key=config("CLOUDINARY_API_KEY"),
