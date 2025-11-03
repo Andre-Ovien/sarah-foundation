@@ -161,7 +161,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://sarah-foundation.onrender.com", 
 ]
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 cloudinary.config(
     cloud_name=config("CLOUDINARY_CLOUD_NAME"),
