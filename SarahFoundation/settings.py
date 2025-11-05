@@ -31,9 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-s!1=1ld@5pyl96h)$cxqa$e+i(u-gn1@ld&83fnjp1^$s1*uxo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['sarah-foundation.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -172,13 +172,11 @@ cloudinary.config(
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-
-
-# User = AUTH_USER_MODEL
-# ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
-
-# try:
-#     if not User.objects.filter(username="admin").exists():
-#         User.objects.create_superuser("admin", "admin@example.com", ADMIN_PASSWORD)
-# except Exception as e:
-#     print(f"Superuser creation skipped: {e}")
+EMAIL_BACKEND=os.getenv('EMAIL_BACKEND')
+EMAIL_HOST=os.getenv('EMAIL_HOST')
+EMAIL_PORT=int(os.getenv('EMAIL_PORT',465))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
+EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL=EMAIL_HOST_USER

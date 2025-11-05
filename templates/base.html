@@ -28,6 +28,42 @@
   <!-- Main CSS File -->
   <link href="{% static 'css/main.css' %}" rel="stylesheet">
 
+ <style>
+#toast-messages {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.toast-message {
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeOut 0.3s ease forwards;
+  animation-delay: 4s;
+  background-color: #333; /* fallback */
+}
+
+.toast-message.success { background-color: #28a745; }
+.toast-message.error { background-color: #dc3545; }
+.toast-message.warning { background-color: #ffc107; color: #000; }
+.toast-message.info { background-color: #17a2b8; }
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; display: none; }
+}
+</style>
   
 </head>
 
@@ -60,6 +96,16 @@
     {% block body %}
     
     {% endblock %}
+    <!-- Toast Messages -->
+    <div id="toast-messages">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="toast-message {{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
   </main>
 
   <footer id="footer" class="footer dark-background">
@@ -127,6 +173,21 @@
 
   <!-- Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
+
+<!-- Toast Fade Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toasts = document.querySelectorAll(".toast-message");
+      if (toasts.length > 0) {
+        setTimeout(() => {
+          toasts.forEach(toast => {
+            toast.style.animation = "fadeOut 0.5s forwards";
+            toast.addEventListener("animationend", () => toast.remove());
+          });
+        }, 5000);
+      }
+    });
+  </script>
 
 </body>
 
